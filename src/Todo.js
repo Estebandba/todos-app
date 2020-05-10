@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import useToogle from "./hooks/useToogle";
 import EditTodoForm from "./EditTodoForm";
 import ListItem from "@material-ui/core/ListItem";
@@ -8,15 +8,16 @@ import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import { TodosContext } from "./context/todos.context";
 
-const Todo = ({ task, completed, removeTodo, id, toogleTodo, editTodo }) => {
+const Todo = ({ task, completed, id }) => {
   const [isToogle, toogle] = useToogle(false);
+  const { toogleTodo, removeTodo } = useContext(TodosContext);
   return (
     <ListItem style={{ height: "64px" }}>
       {isToogle ? (
         <EditTodoForm
           id={id}
-          editTodo={editTodo}
           editTask={task}
           toogleEditForm={toogle}
         />
