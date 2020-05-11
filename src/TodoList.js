@@ -7,14 +7,14 @@ import Todo from "./Todo";
 import { TodosContext } from "./context/todos.context";
 
 const TodoList = () => {
-  const { todos } = useContext(TodosContext);
+  const todos = useContext(TodosContext);
   if (todos.length)
     return (
       <Paper>
         <List>
           {todos.map((todo, index) => (
             <React.Fragment key={todo.id}>
-              <Todo {...todo} key={todo.id} />
+              <Todo {...todo} />
               {index < todos.length - 1 && <Divider key={index} />}
             </React.Fragment>
           ))}
