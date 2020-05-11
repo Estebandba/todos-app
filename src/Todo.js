@@ -12,21 +12,17 @@ import { TodosContext } from "./context/todos.context";
 
 const Todo = ({ task, completed, id }) => {
   const [isToogle, toogle] = useToogle(false);
-  const { toogleTodo, removeTodo } = useContext(TodosContext);
+  const { dispatch } = useContext(TodosContext);
   return (
     <ListItem style={{ height: "64px" }}>
       {isToogle ? (
-        <EditTodoForm
-          id={id}
-          editTask={task}
-          toogleEditForm={toogle}
-        />
+        <EditTodoForm id={id} editTask={task} toogleEditForm={toogle} />
       ) : (
         <>
           <Checkbox
             tabIndex={-1}
             checked={completed}
-            onChange={() => toogleTodo(id)}
+            onChange={() => dispatch({ type: "TOGGLE_TODO", id: id })}
           />
           <ListItemText
             style={{ textDecoration: completed ? "line-through" : "none" }}
@@ -34,7 +30,10 @@ const Todo = ({ task, completed, id }) => {
             {task}
           </ListItemText>
           <ListItemSecondaryAction>
-            <IconButton aria-label="Delete" onClick={() => removeTodo(id)}>
+            <IconButton
+              aria-label="Delete"
+              onClick={() => dispatch({ type: "REMOVE_TODO", id: id })}
+            >
               <DeleteIcon />
             </IconButton>
             <IconButton aria-label="Edit" onClick={toogle}>
