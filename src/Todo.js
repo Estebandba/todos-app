@@ -46,4 +46,7 @@ const Todo = ({ task, completed, id }) => {
   );
 };
 
+//memo is a performance enhancer that avoid re-renders on piece of 
+//components where there is not change, basically it works with a cached pieced of state.
+
 export default memo(Todo);
